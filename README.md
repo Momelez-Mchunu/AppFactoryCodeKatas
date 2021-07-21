@@ -26,6 +26,6 @@ A command line based Java implementation of Conway's Game of Life
 	2. Each cell with four or more neighbours dies.
 	3. Each cell with two or three neighbours survives.
 
-	For an Dead cell (.):
+	For a Dead cell (.):
 	1. Each cell with three neighbours becomes populated.
 	
