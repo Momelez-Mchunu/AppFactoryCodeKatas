@@ -97,28 +97,26 @@ public class Board
         /**
          * Generate the next generation of cells based on the previous generation
          */
-        
-        ArrayList<Cells> countLivingNeighbours =new ArrayList<Cells>();
         ArrayList<Cells> neighbours=null;
         Cells currentCell=null;
         boolean neighbourStatus = false;
-        int sizeOfLivingNeighbours=0;
+        int sizeOfLivingNeighbours;
 
         for (int row=0;row<grid.length;row++)
         {
             for (int col=0;col<grid[row].length;col++)
             {
+                sizeOfLivingNeighbours = 0;
                 neighbours = checkNeighbours(row, col);
                 for (Cells checkNeighbour:neighbours) // Loop through the neighbours list to find living neighbours
                 {
                     neighbourStatus = checkNeighbour.isAlive();
                     if (neighbourStatus==true)
-                        countLivingNeighbours.add(checkNeighbour);
+                        sizeOfLivingNeighbours++;
                 }
                 currentCell = grid[row][col];
                 if (currentCell.isAlive())
                 {
-                    sizeOfLivingNeighbours = countLivingNeighbours.size();
                     if (sizeOfLivingNeighbours < 2 ||  sizeOfLivingNeighbours> 3)
                     {
                         updatedGrid[row][col] = currentCell;
@@ -132,10 +130,14 @@ public class Board
                 }
                 else
                 {
-                    if (countLivingNeighbours.size()==3)
+                    if (sizeOfLivingNeighbours==3)
                     {
                         updatedGrid[row][col] = currentCell;
                         updatedGrid[row][col].setAlive();
+                    }
+                    else
+                    {
+                        updatedGrid[row][col] = currentCell;
                     }
                 }
             }
@@ -147,7 +149,5 @@ public class Board
                 grid[i][j] = updatedGrid[i][j];
             }
         }
-
-       
     }
 }
