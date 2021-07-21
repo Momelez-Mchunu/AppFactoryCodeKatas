@@ -6,6 +6,12 @@ public class Board
     private Cells grid[][],updatedGrid[][];
     public Board(int row, int column)
     {
+    /* 
+     * Constructor used to initialise the Grid made up of cells
+     * @param row
+     * @param column
+     * 
+     * */
        this.row = row;
        this.column =  column;
        this.grid = new Cells[row][column];
@@ -23,6 +29,9 @@ public class Board
 
     public void drawBoard()
     {
+        /**
+         * Iterate through the grid and draw board based on cell status
+         */
        for (int row=0;row<grid.length;row++)
        {
            for (int col=0;col<grid[row].length;col++)
@@ -34,6 +43,9 @@ public class Board
     }
     public void generateBoard()
     {
+        /**
+         * Generate random board, where a cell has 50% chance of either starting out as dead or alive
+         */
         Random random = new Random();
         for (int row=0;row<grid.length;row++)
        {
@@ -46,23 +58,29 @@ public class Board
     }
     public ArrayList<Cells> checkNeighbours(int rowCheck,int colCheck)
     {
+        /**
+         * Calculate the number of neighbours a cell has 
+         * @param rowCheck
+         * @param colCheck
+         * @return ArrayList<Cells>
+         */
          int min_traverse = -1;
          int max_traverse = 2;
          int neighbourRow,neighbourCol;
          boolean isNeighbourValid;
          ArrayList<Cells> neighbours = new ArrayList<Cells>();
-         for (int row=min_traverse;row<max_traverse;row++)
+         for (int row=min_traverse;row<max_traverse;row++) // Loop from -1 to 1, As the neighbours are 1 row left/right of current row
         {
-            for (int col=min_traverse;col<max_traverse;col++)
+            for (int col=min_traverse;col<max_traverse;col++)// Loop from -1 to 1, As the neighbours are 1 column up/down of current row
             {
                 neighbourRow = rowCheck + row;
-                neighbourCol = colCheck + col;  
+                neighbourCol = colCheck + col;   
                 isNeighbourValid = true;
-                
-                if ((neighbourRow == rowCheck) && (neighbourCol == colCheck))
+
+                if ((neighbourRow == rowCheck) && (neighbourCol == colCheck)) // if the row/column are the same as the row/column being checked 
                     isNeighbourValid = false;
 
-                if ((neighbourRow < 0) || (neighbourRow >= this.row))
+                if ((neighbourRow < 0) || (neighbourRow >= this.row))//Cannot have a -ve row number nor can the row be greater than that of vverall grid
                     isNeighbourValid = false;
 
                 if ((neighbourCol < 0 ) || (neighbourCol >= this.column))
@@ -76,31 +94,37 @@ public class Board
     }
     public void updateBoard()
     {
-        /*ArrayList<Cells> dies =  new ArrayList<Cells>();
-        ArrayList<Cells> lives =  new ArrayList<Cells>();*/
+        /**
+         * Generate the next generation of cells based on the previous generation
+         */
+        
         ArrayList<Cells> countLivingNeighbours =new ArrayList<Cells>();
-        ArrayList<Cells> neighbours;
-        Cells currentCell;
+        ArrayList<Cells> neighbours=null;
+        Cells currentCell=null;
+        boolean neighbourStatus = false;
+        int sizeOfLivingNeighbours=0;
 
         for (int row=0;row<grid.length;row++)
         {
             for (int col=0;col<grid[row].length;col++)
             {
                 neighbours = checkNeighbours(row, col);
-                for (int checkNeighbour=0;checkNeighbour<neighbours.size();checkNeighbour++)
+                for (Cells checkNeighbour:neighbours) // Loop through the neighbours list to find living neighbours
                 {
-                    if (neighbours.get(checkNeighbour).isAlive())
-                        countLivingNeighbours.add(neighbours.get(checkNeighbour));    
+                    neighbourStatus = checkNeighbour.isAlive();
+                    if (neighbourStatus==true)
+                        countLivingNeighbours.add(checkNeighbour);
                 }
                 currentCell = grid[row][col];
                 if (currentCell.isAlive())
                 {
-                    if ((countLivingNeighbours.size() < 2) ||  (countLivingNeighbours.size()> 3))
+                    sizeOfLivingNeighbours = countLivingNeighbours.size();
+                    if (sizeOfLivingNeighbours < 2 ||  sizeOfLivingNeighbours> 3)
                     {
                         updatedGrid[row][col] = currentCell;
                         updatedGrid[row][col].setDead();
                     }   
-                    if ((countLivingNeighbours.size() ==2) ||  (countLivingNeighbours.size()==3))
+                    if (sizeOfLivingNeighbours==2 ||  sizeOfLivingNeighbours==3)
                     {
                         updatedGrid[row][col] = currentCell;
                         updatedGrid[row][col].setAlive();
@@ -112,10 +136,8 @@ public class Board
                     {
                         updatedGrid[row][col] = currentCell;
                         updatedGrid[row][col].setAlive();
-
                     }
                 }
-
             }
         }
         for (int i=0;i<updatedGrid.length;i++)
@@ -125,5 +147,7 @@ public class Board
                 grid[i][j] = updatedGrid[i][j];
             }
         }
+
+       
     }
 }
