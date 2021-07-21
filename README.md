@@ -13,10 +13,10 @@ A command line based Java implementation of Conway's Game of Life
 	2. Alternatively, clone the repository using the following line:gh repo clone Momelez-Mchunu/AppFactoryCodeKatas;
 		
 ## Usage: 
-        1. Compile App.java on the cloned repository
-    	2. Either run it on your IDE after compilatation
-    	3. Or run it on the command line with - java App someInt1 someInt2
-    	4. Where someInt1 & someInt2 respectively represent rows and columns of the grid
+    1. Compile App.java on the cloned repository
+    2. Either run it on your IDE after compilatation
+    3. Or run it on the command line with - java App someInt1 someInt2
+    4. Where someInt1 & someInt2 respectively represent rows and columns of the grid
 	 
 
 ## Rules of the Game:
