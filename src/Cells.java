@@ -18,15 +18,22 @@ public class Cells
 
     public boolean isAlive()
     {
-         if (status.equals("alive"))
-            return true;
-        return false;
+        boolean flag;
+        if (status.equals("alive"))
+            flag = true;
+        else
+           flag = false;
+        return flag;
+        
     }
     public String printStatus()
     {
+        String result;
         if (isAlive())
-           return "0";
-        return ".";
+           result = "0";
+        else
+           result =".";
+        return result;
     }
     
 }
