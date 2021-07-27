@@ -27,5 +27,6 @@ public class BoardTest
         board.drawBoard();
         assertFalse(board.accessCell(9, 9).isAlive());
     }
+    
 
 }
