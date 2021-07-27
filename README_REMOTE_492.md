@@ -29,4 +29,3 @@ A command line based Java implementation of Conway's Game of Life
 	For a Dead cell (.):
 	1. Each cell with three neighbours becomes populated.
 	
-
