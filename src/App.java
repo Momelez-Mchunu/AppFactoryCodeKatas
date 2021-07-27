@@ -29,7 +29,7 @@ public class App {
             try {
                 int rows = Integer.parseInt(args[0]);
                 int columns = Integer.parseInt(args[1]);
-                Board game = new Board(rows,columns);
+                Board game = new Board(rows,columns,0);
                 game.drawBoard();
                 String input= "";
                 while (!(input.equals("quit")))
